@@ -116,3 +116,5 @@ void Task3(void *pvParameters) {
 
 void loop() {
 }
+
+///// hey zaid anytime i upload this code to the esp32 it uploads and verifies properly but i get nothing when its done like nothing from output in the serial monitor
