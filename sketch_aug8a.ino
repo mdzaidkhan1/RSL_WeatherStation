@@ -40,7 +40,7 @@ void setup() {
 
   // Init sensors
   dht20.begin();
-  if (!bme.begin(0x76)) {
+  if (!bme.begin(0x77)) {
     Serial.println("Could not find BME280 sensor!");
   }
   }
