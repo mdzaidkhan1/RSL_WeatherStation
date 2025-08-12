@@ -4,10 +4,14 @@
 #include <semphr.h>
 
 
-#define BUFFER_SIZE 1        // Number of readings stored
-#define READ_INTERVAL 300    // in milliseconds (300 seconds = 5 minutes)
+#define BUFFER_SIZE 2        // Number of readings stored
+#define READ_INTERVAL 3000    // in milliseconds (300 seconds = 5 minutes)
 #define SEALEVELPRESSURE_HPA 1013.25
 
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 10
 
 SemaphoreHandle_t mutex;
 
@@ -38,7 +42,7 @@ void setup() {
   dht20.begin();
   if (!bme.begin(0x76)) {
     Serial.println("Could not find BME280 sensor!");
-    while (1);
+  }
   }
 
   // Create Mutex
@@ -80,8 +84,8 @@ void Task2(void *pvParameters) {
       }
       xSemaphoreGive(mutex);
     }
-    vTaskDelay(pdMS_TO_TICKS(1000));
-    Serial.println("tak2 done"); // Check every second
+    vTaskDelay(pdMS_TO_TICKS(10000));
+    Serial.println("task2 done"); // Check every second
   }
 }
 
@@ -118,3 +122,4 @@ void loop() {
 }
 
 ///// hey zaid anytime i upload this code to the esp32 it uploads and verifies properly but i get nothing when its done like nothing from output in the serial monitor
+//  i have been able to fix it but the Bme280 ia giving nan values for the pressure and altitiude i will try to get it to work today
